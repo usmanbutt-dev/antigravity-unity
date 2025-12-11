@@ -1,0 +1,30 @@
+{
+    "name": "com.community.antigravity-unity",
+    "version": "1.0.0",
+    "displayName": "Antigravity IDE Support",
+    "description": "Integrates Google Antigravity IDE as an external code editor in Unity. Provides seamless file opening, project synchronization, and VS Code-style navigation.",
+    "unity": "2021.3",
+    "unityRelease": "0f1",
+    "documentationUrl": "https://github.com/usmanbutt-dev/antigravity-unity#readme",
+    "changelogUrl": "https://github.com/usmanbutt-dev/antigravity-unity/blob/main/CHANGELOG.md",
+    "licensesUrl": "https://github.com/usmanbutt-dev/antigravity-unity/blob/main/LICENSE",
+    "keywords": [
+        "ide",
+        "editor",
+        "antigravity",
+        "google",
+        "code",
+        "external-editor",
+        "vscode"
+    ],
+    "author": {
+        "name": "Usman Butt",
+        "url": "https://github.com/usmanbutt-dev"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/usmanbutt-dev/antigravity-unity.git"
+    },
+    "type": "tool",
+    "dependencies": {}
+}
