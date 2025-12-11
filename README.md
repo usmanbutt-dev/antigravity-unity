@@ -2,6 +2,7 @@
 
 [![Unity 2021.3+](https://img.shields.io/badge/Unity-2021.3%2B-blue.svg)](https://unity.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![GitHub](https://img.shields.io/github/stars/usmanbutt-dev/antigravity-unity?style=social)](https://github.com/usmanbutt-dev/antigravity-unity)
 
 A Unity package that integrates [Google Antigravity IDE](https://antigravity.google) as an external code editor.
 
@@ -22,19 +23,13 @@ A Unity package that integrates [Google Antigravity IDE](https://antigravity.goo
 3. Select `Add package from git URL...`
 4. Enter the following URL:
    ```
-   https://github.com/community/antigravity-unity.git
+   https://github.com/usmanbutt-dev/antigravity-unity.git
    ```
 5. Click `Add`
 
-### Option 2: OpenUPM
+### Option 2: Manual Installation
 
-```bash
-openupm add com.community.antigravity-unity
-```
-
-### Option 3: Manual Installation
-
-1. Download this repository as a ZIP
+1. Download this repository as a ZIP from [Releases](https://github.com/usmanbutt-dev/antigravity-unity/releases) or [Code > Download ZIP](https://github.com/usmanbutt-dev/antigravity-unity/archive/refs/heads/master.zip)
 2. Extract to your project's `Packages/` folder
 3. Rename the folder to `com.community.antigravity-unity`
 
