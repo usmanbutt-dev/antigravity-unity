@@ -19,6 +19,16 @@ namespace Community.Antigravity
         private static readonly GUIContent ResetPathButtonContent = new GUIContent("Reset Path", "Attempt to auto-detect the Antigravity installation path.");
         private static readonly GUIContent BrowseButtonContent = new GUIContent("Browse...", "Manually select the Antigravity executable.");
 
+        // File extensions that should be handled by Unity internally, not by external editors
+        private static readonly string[] UnityInternalExtensions = new[]
+        {
+            ".unity", ".prefab", ".asset", ".mat", ".physicmaterial", ".physicsmaterial",
+            ".controller", ".anim", ".overridecontroller", ".mask",
+            ".preset", ".lighting", ".giparams", ".terrainlayer",
+            ".brush", ".mixer", ".shadervariants", ".cubemap",
+            ".flare", ".fontsettings", ".guiskin", ".spriteatlas"
+        };
+
         private string _cachedPath;
 
         static AntigravityEditor()
@@ -65,6 +75,17 @@ namespace Community.Antigravity
         /// </summary>
         public bool OpenProject(string filePath, int line, int column)
         {
+            // Check if this is a Unity-internal file type that should be handled by Unity itself
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                string extension = Path.GetExtension(filePath).ToLowerInvariant();
+                if (Array.Exists(UnityInternalExtensions, ext => ext == extension))
+                {
+                    // Return false to let Unity handle this file type internally
+                    return false;
+                }
+            }
+
             var editorPath = GetEditorPath();
             if (string.IsNullOrEmpty(editorPath))
             {
