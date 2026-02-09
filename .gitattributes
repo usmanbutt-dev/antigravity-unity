@@ -1,0 +1,8 @@
+# Mark Unity meta files as generated (fixes GitHub license detection)
+*.meta linguist-generated=true
+*.meta -linguist-detectable
+
+# Unity asset files
+*.asset linguist-generated=true
+*.prefab linguist-generated=true
+*.unity linguist-generated=true
