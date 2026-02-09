@@ -1,6 +1,6 @@
 {
     "name": "com.community.antigravity-unity",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "displayName": "Antigravity IDE Support",
     "description": "Integrates Google Antigravity IDE as an external code editor in Unity. Provides seamless file opening, project synchronization, and VS Code-style navigation.",
     "unity": "2021.3",

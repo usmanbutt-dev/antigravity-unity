@@ -31,17 +31,34 @@ namespace Community.Antigravity
 
         private static string FindOnWindows()
         {
+            var userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            var programFilesX86 = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+
             // Check common installation paths on Windows
             string[] possiblePaths = new[]
             {
                 // User-level install (typical for VS Code forks)
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs", "Antigravity", WindowsExecutableName),
+                Path.Combine(localAppData, "Programs", "Antigravity", WindowsExecutableName),
+                Path.Combine(localAppData, "Programs", "antigravity", WindowsExecutableName),
+                Path.Combine(localAppData, "Programs", "Google Antigravity", WindowsExecutableName),
+                
                 // Machine-level install
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Antigravity", WindowsExecutableName),
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Antigravity", WindowsExecutableName),
-                // Alternative naming conventions
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs", "antigravity", WindowsExecutableName),
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs", "Google Antigravity", WindowsExecutableName),
+                Path.Combine(programFiles, "Antigravity", WindowsExecutableName),
+                Path.Combine(programFiles, "Google Antigravity", WindowsExecutableName),
+                Path.Combine(programFilesX86, "Antigravity", WindowsExecutableName),
+                
+                // Scoop
+                Path.Combine(userProfile, "scoop", "apps", "antigravity", "current", WindowsExecutableName),
+                Path.Combine(userProfile, "scoop", "shims", "antigravity.exe"),
+                
+                // Chocolatey
+                @"C:\ProgramData\chocolatey\lib\antigravity\tools\Antigravity.exe",
+                @"C:\ProgramData\chocolatey\bin\antigravity.exe",
+                
+                // Portable installs
+                Path.Combine(userProfile, "Antigravity", WindowsExecutableName),
             };
 
             foreach (var path in possiblePaths)
@@ -81,13 +98,29 @@ namespace Community.Antigravity
 
         private static string FindOnLinux()
         {
+            var userHome = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            
             // Check standard Linux paths
             string[] possiblePaths = new[]
             {
+                // Standard paths
                 "/usr/bin/antigravity",
                 "/usr/local/bin/antigravity",
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".local", "bin", "antigravity"),
+                Path.Combine(userHome, ".local", "bin", "antigravity"),
                 "/opt/antigravity/antigravity",
+                "/opt/Antigravity/antigravity",
+                
+                // Snap
+                "/snap/bin/antigravity",
+                "/snap/antigravity/current/antigravity",
+                
+                // Flatpak
+                Path.Combine(userHome, ".local", "share", "flatpak", "exports", "bin", "com.google.Antigravity"),
+                "/var/lib/flatpak/exports/bin/com.google.Antigravity",
+                
+                // Extracted tarball
+                Path.Combine(userHome, "antigravity", "antigravity"),
+                Path.Combine(userHome, "Antigravity", "antigravity"),
             };
 
             foreach (var path in possiblePaths)
