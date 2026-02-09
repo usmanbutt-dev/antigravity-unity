@@ -6,81 +6,130 @@
 
 A Unity package that integrates [Google Antigravity IDE](https://antigravity.google) as an external code editor.
 
-## Features
+## ⚡ Quick Start
+
+```
+Window > Package Manager > + > Add package from git URL...
+→ https://github.com/usmanbutt-dev/antigravity-unity.git
+```
+
+Then: `Edit > Preferences > External Tools` → Select **Antigravity**
+
+## ✨ Features
 
 - 🚀 **Seamless Integration** - Antigravity appears in Unity's External Tools dropdown
 - 📍 **Smart Navigation** - Opens files at the correct line and column
-- 🔍 **Auto-Detection** - Automatically finds Antigravity installation on Windows, macOS, and Linux
-- ⚙️ **Manual Configuration** - Browse to select custom installation paths
+- 🔍 **Auto-Detection** - Finds Antigravity on Windows, macOS, Linux (including Scoop, Chocolatey, Homebrew, Snap, Flatpak)
+- 📁 **Context Menu** - Right-click any file → "Open in Antigravity"
+- ⚙️ **Config Generators** - One-click setup for `.omnisharp.json`, `.editorconfig`, `.vscode/settings.json`
 - 🔄 **Project Sync** - Generates proper `.csproj` and `.sln` files
 
-## Installation
+## 📦 Installation
 
 ### Option 1: Git URL (Recommended)
 
-1. Open Unity and go to `Window > Package Manager`
-2. Click the `+` button in the top-left corner
-3. Select `Add package from git URL...`
-4. Enter the following URL:
-   ```
-   https://github.com/usmanbutt-dev/antigravity-unity.git
-   ```
-5. Click `Add`
+1. Open Unity → `Window > Package Manager`
+2. Click `+` → `Add package from git URL...`
+3. Enter: `https://github.com/usmanbutt-dev/antigravity-unity.git`
+4. Click `Add`
 
 ### Option 2: Manual Installation
 
-1. Download this repository as a ZIP from [Releases](https://github.com/usmanbutt-dev/antigravity-unity/releases) or [Code > Download ZIP](https://github.com/usmanbutt-dev/antigravity-unity/archive/refs/heads/master.zip)
-2. Extract to your project's `Packages/` folder
-3. Rename the folder to `com.community.antigravity-unity`
+1. Download from [Releases](https://github.com/usmanbutt-dev/antigravity-unity/releases)
+2. Extract to `YourProject/Packages/com.community.antigravity-unity`
 
-## Setup
+## 🛠️ Setup
 
-1. Go to `Edit > Preferences > External Tools` (Windows/Linux) or `Unity > Preferences > External Tools` (macOS)
-2. In the **External Script Editor** dropdown, select **Antigravity**
-3. If Antigravity is not auto-detected, click **Browse...** to manually select the executable:
-   - **Windows**: Usually `%LOCALAPPDATA%\Programs\Antigravity\Antigravity.exe`
-   - **macOS**: Usually `/Applications/Antigravity.app`
-   - **Linux**: Usually `/usr/bin/antigravity` or `/opt/antigravity/antigravity`
+1. Go to `Edit > Preferences > External Tools`
+2. Select **Antigravity** from the dropdown
+3. If not auto-detected, click **Browse...** to select the executable
 
-## Usage
+**Default Paths:**
+| Platform | Path |
+|----------|------|
+| Windows | `%LOCALAPPDATA%\Programs\Antigravity\Antigravity.exe` |
+| macOS | `/Applications/Antigravity.app` |
+| Linux | `/usr/bin/antigravity` |
 
-Once configured, simply double-click any C# script in Unity's Project window. Antigravity will open with:
-- The correct file focused
-- The cursor at the line where the symbol is defined (when clicking from error messages)
+## 📋 Window Menu
 
-## Requirements
+Access all features from `Window > Antigravity`:
 
-- Unity 2021.3 or later
-- [Google Antigravity IDE](https://antigravity.google) installed on your system
+| Menu Item | Description |
+|-----------|-------------|
+| Open Project Folder | Opens project root in Antigravity |
+| Open Assets Folder | Opens Assets folder in Antigravity |
+| Regenerate Project Files | Forces .csproj/.sln regeneration |
+| Open Preferences | Quick link to External Tools settings |
+| **Generate All Config Files** | Creates all config files below |
+| Generate .omnisharp.json | Better C# IntelliSense |
+| Generate .editorconfig | Unity coding conventions |
+| Generate .vscode/settings.json | Workspace settings & exclusions |
 
-## Compatibility
+## ⚙️ Config File Generators
+
+Run `Window > Antigravity > Generate All Config Files` to create:
+
+### `.omnisharp.json`
+Configures OmniSharp for Unity:
+- Enables Roslyn analyzers
+- Enables import completion
+- Excludes Library/Temp/Logs from analysis
+
+### `.editorconfig`
+Sets up Unity coding conventions:
+- 4-space indentation
+- Allman brace style
+- `_camelCase` for private fields
+- Disables false-positive warnings (IDE0051, IDE0044)
+
+### `.vscode/settings.json`
+Optimizes workspace:
+- File associations (`.shader` → HLSL, `.asmdef` → JSON)
+- Excludes Library/Temp/Logs from explorer
+- Enables format-on-save
+- Configures OmniSharp settings
+
+## 🎯 Context Menu
+
+Right-click any file or folder in the Project window → **"Open in Antigravity"**
+
+## 🔧 Compatibility
 
 | Platform | Status |
 |----------|--------|
-| Windows  | ✅ Fully Supported |
-| macOS    | ✅ Fully Supported |
-| Linux    | ✅ Fully Supported |
+| Windows | ✅ Supported (Scoop, Chocolatey, WinGet) |
+| macOS | ✅ Supported (Homebrew) |
+| Linux | ✅ Supported (Snap, Flatpak, AppImage) |
 
-## Troubleshooting
+| Unity Version | Status |
+|---------------|--------|
+| 2021.3 LTS | ✅ |
+| 2022.x | ✅ |
+| 2023.x | ✅ |
+| Unity 6 | ✅ |
 
-### Antigravity doesn't appear in the dropdown
-- Ensure the package is properly installed (check `Window > Package Manager > In Project`)
-- Try closing and reopening Unity
+## ❓ Troubleshooting
 
-### "Editor path is not set" error
-- Go to `Preferences > External Tools` and use the **Browse...** button to manually select Antigravity
+**Antigravity doesn't appear in dropdown**
+- Check `Window > Package Manager > In Project` for the package
+- Restart Unity
 
-### Files open but cursor is at wrong position
-- Antigravity uses VS Code-style arguments (`-g file:line:column`). Ensure you have the latest version of Antigravity installed.
+**"Editor path is not set" error**
+- Go to `Preferences > External Tools` → Click **Browse...**
 
-## Contributing
+**IntelliSense not working**
+- Run `Window > Antigravity > Generate All Config Files`
+- Restart Antigravity
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## 🤝 Contributing
 
-## License
+Contributions welcome! Feel free to submit a Pull Request.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 📄 License
 
-## Disclaimer
+MIT License - see [LICENSE](LICENSE)
 
-This is a community-maintained package and is not officially affiliated with Google or the Antigravity team.
+---
+
+*Community-maintained. Not affiliated with Google.*
