@@ -1,10 +1,15 @@
+<p align="center">
+  <img src="images/hero_banner_2to1.png" alt="Antigravity for Unity Banner" width="100%" />
+</p>
+
 # Antigravity IDE Support for Unity
+
+A premium, open-source Unity package that integrates the **Google Antigravity IDE** as an external code editor. Keep your agentic workflows fast, seamless, and fully integrated with Unity.
 
 [![Unity 2021.3+](https://img.shields.io/badge/Unity-2021.3%2B-blue.svg)](https://unity.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![GitHub](https://img.shields.io/github/stars/usmanbutt-dev/antigravity-unity?style=social)](https://github.com/usmanbutt-dev/antigravity-unity)
+[![GitHub Stars](https://img.shields.io/github/stars/usmanbutt-dev/antigravity-unity?style=social)](https://github.com/usmanbutt-dev/antigravity-unity)
 
-A Unity package that integrates [Google Antigravity IDE](https://antigravity.google) as an external code editor.
 
 ## ⚡ Quick Start
 
@@ -126,7 +131,7 @@ Right-click any file or folder in the Project window → **"Open in Antigravity"
 
 ## 🤝 Contributing
 
-Contributions welcome! Feel free to submit a Pull Request.
+Contributions are welcome! Feel free to open issues or submit Pull Requests to help improve the package.
 
 ## 📄 License
 
@@ -135,3 +140,4 @@ MIT License - see [LICENSE](LICENSE)
 ---
 
 *Community-maintained. Not affiliated with Google.*
+
