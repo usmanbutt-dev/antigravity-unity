@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-05-29
+
+### Fixed
+- **Antigravity IDE detection** - Updated auto-discovery to prioritize the new **Antigravity IDE** executable paths on Windows, macOS, and Linux following the Google I/O 2026 product split. Legacy `Antigravity.exe` / `Antigravity.app` paths are still supported for backward compatibility. ([#2](https://github.com/usmanbutt-dev/antigravity-unity/issues/2))
+- **LICENSE.meta restored** - Re-added the `LICENSE.meta` file for Unity package compliance. The `.gitattributes` file ensures GitHub license detection remains unaffected. ([#1](https://github.com/usmanbutt-dev/antigravity-unity/issues/1))
+
+### Changed
+- Updated README default paths to reflect the post-I/O 2026 Antigravity IDE executable names
+
+---
+
 ## [1.3.0] - 2026-02-09
 
 ### Added

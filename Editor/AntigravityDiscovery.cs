@@ -9,8 +9,11 @@ namespace Community.Antigravity
     /// </summary>
     public static class AntigravityDiscovery
     {
-        private const string WindowsExecutableName = "Antigravity.exe";
-        private const string MacExecutableName = "Antigravity";
+        // Post-I/O 2026: Antigravity was split into "Antigravity" (agent) and "Antigravity IDE" (editor)
+        private const string WindowsIdeExecutableName = "Antigravity IDE.exe";
+        private const string WindowsLegacyExecutableName = "Antigravity.exe";
+        private const string MacIdeExecutableName = "Antigravity IDE";
+        private const string MacLegacyExecutableName = "Antigravity";
 
         /// <summary>
         /// Attempts to find the Antigravity IDE executable on the system.
@@ -37,20 +40,41 @@ namespace Community.Antigravity
             var programFilesX86 = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
 
             // Check common installation paths on Windows
+            // Post-I/O 2026: "Antigravity IDE" paths are prioritized over legacy "Antigravity" paths
             string[] possiblePaths = new[]
             {
-                // User-level install (typical for VS Code forks)
-                Path.Combine(localAppData, "Programs", "Antigravity", WindowsExecutableName),
-                Path.Combine(localAppData, "Programs", "antigravity", WindowsExecutableName),
-                Path.Combine(localAppData, "Programs", "Google Antigravity", WindowsExecutableName),
+                // === Antigravity IDE (post-I/O 2026 split) ===
+                // User-level install
+                Path.Combine(localAppData, "Programs", "Antigravity IDE", WindowsIdeExecutableName),
+                Path.Combine(localAppData, "Programs", "antigravity-ide", WindowsIdeExecutableName),
+                Path.Combine(localAppData, "Programs", "Google Antigravity IDE", WindowsIdeExecutableName),
                 
                 // Machine-level install
-                Path.Combine(programFiles, "Antigravity", WindowsExecutableName),
-                Path.Combine(programFiles, "Google Antigravity", WindowsExecutableName),
-                Path.Combine(programFilesX86, "Antigravity", WindowsExecutableName),
+                Path.Combine(programFiles, "Antigravity IDE", WindowsIdeExecutableName),
+                Path.Combine(programFiles, "Google Antigravity IDE", WindowsIdeExecutableName),
+                Path.Combine(programFilesX86, "Antigravity IDE", WindowsIdeExecutableName),
                 
                 // Scoop
-                Path.Combine(userProfile, "scoop", "apps", "antigravity", "current", WindowsExecutableName),
+                Path.Combine(userProfile, "scoop", "apps", "antigravity-ide", "current", WindowsIdeExecutableName),
+                Path.Combine(userProfile, "scoop", "shims", "antigravity-ide.exe"),
+                
+                // Chocolatey
+                @"C:\ProgramData\chocolatey\lib\antigravity-ide\tools\Antigravity IDE.exe",
+                @"C:\ProgramData\chocolatey\bin\antigravity-ide.exe",
+
+                // === Legacy "Antigravity" paths (pre-split, backward compat) ===
+                // User-level install
+                Path.Combine(localAppData, "Programs", "Antigravity", WindowsLegacyExecutableName),
+                Path.Combine(localAppData, "Programs", "antigravity", WindowsLegacyExecutableName),
+                Path.Combine(localAppData, "Programs", "Google Antigravity", WindowsLegacyExecutableName),
+                
+                // Machine-level install
+                Path.Combine(programFiles, "Antigravity", WindowsLegacyExecutableName),
+                Path.Combine(programFiles, "Google Antigravity", WindowsLegacyExecutableName),
+                Path.Combine(programFilesX86, "Antigravity", WindowsLegacyExecutableName),
+                
+                // Scoop
+                Path.Combine(userProfile, "scoop", "apps", "antigravity", "current", WindowsLegacyExecutableName),
                 Path.Combine(userProfile, "scoop", "shims", "antigravity.exe"),
                 
                 // Chocolatey
@@ -58,7 +82,8 @@ namespace Community.Antigravity
                 @"C:\ProgramData\chocolatey\bin\antigravity.exe",
                 
                 // Portable installs
-                Path.Combine(userProfile, "Antigravity", WindowsExecutableName),
+                Path.Combine(userProfile, "Antigravity IDE", WindowsIdeExecutableName),
+                Path.Combine(userProfile, "Antigravity", WindowsLegacyExecutableName),
             };
 
             foreach (var path in possiblePaths)
@@ -76,11 +101,22 @@ namespace Community.Antigravity
 
         private static string FindOnMac()
         {
+            var userHome = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            
             // Check standard macOS application paths
+            // Post-I/O 2026: "Antigravity IDE" paths are prioritized over legacy "Antigravity" paths
             string[] possiblePaths = new[]
             {
-                "/Applications/Antigravity.app/Contents/MacOS/Antigravity",
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Applications", "Antigravity.app", "Contents", "MacOS", "Antigravity"),
+                // Antigravity IDE (post-split)
+                $"/Applications/Antigravity IDE.app/Contents/MacOS/{MacIdeExecutableName}",
+                Path.Combine(userHome, "Applications", "Antigravity IDE.app", "Contents", "MacOS", MacIdeExecutableName),
+                
+                // Homebrew cask
+                $"/opt/homebrew/bin/antigravity-ide",
+                
+                // Legacy (pre-split)
+                $"/Applications/Antigravity.app/Contents/MacOS/{MacLegacyExecutableName}",
+                Path.Combine(userHome, "Applications", "Antigravity.app", "Contents", "MacOS", MacLegacyExecutableName),
             };
 
             foreach (var path in possiblePaths)
@@ -101,9 +137,24 @@ namespace Community.Antigravity
             var userHome = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             
             // Check standard Linux paths
+            // Post-I/O 2026: "antigravity-ide" paths are prioritized over legacy "antigravity" paths
             string[] possiblePaths = new[]
             {
-                // Standard paths
+                // === Antigravity IDE (post-split) ===
+                "/usr/bin/antigravity-ide",
+                "/usr/local/bin/antigravity-ide",
+                Path.Combine(userHome, ".local", "bin", "antigravity-ide"),
+                "/opt/antigravity-ide/antigravity-ide",
+                
+                // Snap
+                "/snap/bin/antigravity-ide",
+                "/snap/antigravity-ide/current/antigravity-ide",
+                
+                // Flatpak
+                Path.Combine(userHome, ".local", "share", "flatpak", "exports", "bin", "com.google.AntigravityIDE"),
+                "/var/lib/flatpak/exports/bin/com.google.AntigravityIDE",
+                
+                // === Legacy "antigravity" paths (pre-split, backward compat) ===
                 "/usr/bin/antigravity",
                 "/usr/local/bin/antigravity",
                 Path.Combine(userHome, ".local", "bin", "antigravity"),
@@ -119,6 +170,7 @@ namespace Community.Antigravity
                 "/var/lib/flatpak/exports/bin/com.google.Antigravity",
                 
                 // Extracted tarball
+                Path.Combine(userHome, "antigravity-ide", "antigravity-ide"),
                 Path.Combine(userHome, "antigravity", "antigravity"),
                 Path.Combine(userHome, "Antigravity", "antigravity"),
             };

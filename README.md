@@ -44,12 +44,14 @@ Then: `Edit > Preferences > External Tools` → Select **Antigravity**
 2. Select **Antigravity** from the dropdown
 3. If not auto-detected, click **Browse...** to select the executable
 
-**Default Paths:**
+**Default Paths (post-I/O 2026):**
 | Platform | Path |
 |----------|------|
-| Windows | `%LOCALAPPDATA%\Programs\Antigravity\Antigravity.exe` |
-| macOS | `/Applications/Antigravity.app` |
-| Linux | `/usr/bin/antigravity` |
+| Windows | `%LOCALAPPDATA%\Programs\Antigravity IDE\Antigravity IDE.exe` |
+| macOS | `/Applications/Antigravity IDE.app` |
+| Linux | `/usr/bin/antigravity-ide` |
+
+> **Note:** Legacy `Antigravity.exe` / `Antigravity.app` paths (pre-I/O 2026) are also supported for backward compatibility.
 
 ## 📋 Window Menu
 
