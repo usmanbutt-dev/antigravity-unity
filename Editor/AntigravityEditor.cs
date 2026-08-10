@@ -97,14 +97,14 @@ namespace Community.Antigravity
             // -g file:line:column opens the file at the specified location
             // -r reuses the existing window
             var projectPath = Directory.GetParent(Application.dataPath)?.FullName ?? ".";
-            
+
             string arguments;
             if (!string.IsNullOrEmpty(filePath))
             {
                 // Open specific file at line
                 if (line > 0)
                 {
-                    arguments = $"-r -g \"{filePath}\":{line}:{column} \"{projectPath}\"";
+                    arguments = $"-r -g \"{filePath}:{line}:{System.Math.Max(0, column)}\" \"{projectPath}\"";
                 }
                 else
                 {
@@ -117,13 +117,14 @@ namespace Community.Antigravity
                 arguments = $"-r \"{projectPath}\"";
             }
 
+
             try
             {
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = editorPath,
                     Arguments = arguments,
-                    UseShellExecute = true,
+                    UseShellExecute = false,
                     CreateNoWindow = true
                 };
 
@@ -164,7 +165,7 @@ namespace Community.Antigravity
         public void OnGUI()
         {
             EditorGUILayout.BeginHorizontal();
-            
+
             var currentPath = GetEditorPath();
             EditorGUILayout.LabelField("Antigravity Path:", currentPath ?? "(Not Set)");
 
@@ -202,7 +203,7 @@ namespace Community.Antigravity
         private CodeEditor.Installation[] GetInstallations()
         {
             var path = GetEditorPath();
-            
+
             // If we don't have a cached path, try to discover it
             if (string.IsNullOrEmpty(path))
             {
