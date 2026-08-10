@@ -117,7 +117,6 @@ namespace Community.Antigravity
                 arguments = $"-r \"{projectPath}\"";
             }
 
-            File.WriteAllText(Path.Combine(projectPath, "antigravity_debug.txt"), $"Executable: {editorPath}\nArgs: {arguments}");
 
             try
             {
